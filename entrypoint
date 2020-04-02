@@ -1,6 +1,5 @@
 #!/bin/sh -eux
 
-REPO=$(jq -r ".repository.full_name" "${GITHUB_EVENT_PATH}")
 BRANCH=""
 
 if [ -z "${BRANCH}" ]; then
@@ -17,7 +16,7 @@ AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
 git config --global user.email "submodule@github.com"
 git config --global user.name "GitHub Scheduled Submodules Action"
 
-git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${REPO}.git
+git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
 
 git fetch --all -p
 git checkout "${BRANCH}"
